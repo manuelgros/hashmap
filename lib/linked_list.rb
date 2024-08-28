@@ -44,15 +44,15 @@ class LinkedList
   #   count
   # end
 
-  # def at(index)
-  #   active_node = @head
-  #   (index-1).times do 
-  #     active_node = active_node.next_node
+  def at(index)
+    active_node = @head
+    (index-1).times do 
+      active_node = active_node.next_node
       
-  #     return if active_node == nil
-  #   end
-  #   active_node
-  # end
+      return if active_node == nil
+    end
+    active_node
+  end
 
   # def pop
   #   return nil if @tail.nil?
@@ -67,25 +67,25 @@ class LinkedList
   #   deleted_node
   # end
 
-  def contains?(value)
+  def contains?(key)
     active_node = @head
     until active_node == nil
-      return true if active_node.value == value
+      return true if active_node.key == key
 
       active_node = active_node.next_node
     end
     false
   end
 
-  # def find(value)
-  #   active_node = @head
-  #   index = 1
-  #   until active_node == nil
-  #     return index if active_node.value == value
+  def find(key)
+    active_node = @head
+    index = 1
+    until active_node == nil
+      return index if active_node.key == key
 
-  #     active_node = active_node.next_node
-  #     index += 1
-  #   end
-  #   nil
-  # end
+      active_node = active_node.next_node
+      index += 1
+    end
+    nil
+  end
 end
