@@ -1,4 +1,4 @@
-# 1.) How to keep track of Keys to determine if collision or reassignment?
+# 1.) How to keep track of Keys to determine if collision or reassignment? => save key/value pair as Node
 # 2.) Best way to grow bucket. If create new array how to copy exisiting elements over? 
 require './lib/node'
 require './lib/linked_list'
@@ -22,30 +22,16 @@ class HashMap
 
     hash_code%capacity
   end
-
-  def grow_bucket
-    if capacity*load_factor < bucket.count { |element| !element.nil? }
-      @bucket = bucket + Array.new(capacity)
-      @capacity *= 2
-    end
-  end
-
-  # creating array with key and value is attempt to keep track of keys for probalem 1.)
-  # def set(key, value)
-  #   if bucket[hash(key)%capacity].nil? || bucket[hash(key)%capacity][0] == key
-  #     bucket[hash(key)%capacity] = [key, value]
-  #     grow_bucket
-  #   end
-  # end
   
   def set(key, value)
-    # if bucket[hash(key)].nil? || bucket[hash(key)].key == key
-      bucket[hash(key)] = LinkedList.new.append(key, value)
-    # end
+    selected_bucket = bucket[hash(key)] 
+      return selected_bucket = LinkedList.new.append(key, value) if selected_bucket.nil?
+
+      if selected_bucket.contains?(key)
+        selected_bucket.at(selected_bucket.find(key)).value = value
+      else
+        selected_bucket.append(key, value)
+      end
   end
 end
 
-# new_map = HashMap.new
-# p new_map.bucket
-# new_map.set("Carlos", "Martinez")
-# p new_map.bucket
