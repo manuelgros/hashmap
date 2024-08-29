@@ -42,6 +42,7 @@ class HashMap
     end
   end
   
+  # change so returns added Node?
   def set(key, value)
     hashed_key = hash(key)
     return bucket[hashed_key] = LinkedList.new.append(key, value) if bucket[hashed_key].nil?
@@ -101,3 +102,5 @@ new_map = HashMap.new
 new_map.set('Aoo', 'Boo')
 new_map.set('Coo', 'Doo')
 new_map.set('Eoo', 'Foo')
+new_map.set('Carlos', 'Goo')
+new_map.set('Carloc', 'Hoo')
