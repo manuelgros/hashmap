@@ -9,7 +9,7 @@ class HashMap
   def initialize
     @capacity = 16
     @bucket = Array.new(capacity)
-    @load_factor = 0.8
+    @load_factor = 0.75
   end
   
   def hash(key)
