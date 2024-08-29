@@ -34,15 +34,15 @@ class LinkedList
     self
   end
 
-  # def size
-  #   count = 0
-  #   active_node = @head
-  #   until active_node == nil
-  #     count += 1
-  #     active_node = active_node.next_node
-  #   end
-  #   count
-  # end
+  def size
+    count = 0
+    active_node = @head
+    until active_node == nil
+      count += 1
+      active_node = active_node.next_node
+    end
+    count
+  end
 
   def at(index)
     active_node = @head
