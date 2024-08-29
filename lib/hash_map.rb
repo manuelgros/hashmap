@@ -22,7 +22,12 @@ class HashMap
   end
 
   def bucket_near_capacity?
-    capacity*load_factor < bucket.count { |element| !element.nil? }
+    capacity*load_factor < bucket.reduce(0) do |sum, element|
+      unless element.nil?
+        sum += element.size
+      end
+      sum
+    end
   end
 
   def grow_bucket
