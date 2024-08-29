@@ -56,11 +56,23 @@ class HashMap
 
   # hash(key) <= bucket.length necessary? The way my hash() works the resulting index can't exceed array length
   def get(key)
-    if bucket[hash(key)] != nil && hash(key) <= bucket.length 
-      bucket[hash(key)].at(bucket[hash(key)].find(key)).value
+    hashed_key = hash(key)
+    if bucket[hashed_key] != nil && hashed_key <= bucket.length 
+      bucket[hashed_key].at(bucket[hashed_key].find(key)).value
     else
       nil
     end
+  end
+
+  def has?(key)
+    hashed_key = hash(key)
+    return false if bucket[hashed_key].nil?
+
+    bucket[hashed_key].contains?(key)
+  end
+
+  def remove(key)
+    if has?(key)
   end
 end
 
