@@ -114,6 +114,15 @@ class HashMap
       array
     end
   end
+
+  def entries
+    bucket.reduce([]) do |array, element|
+      unless element.nil?
+        element.each {|node| array << [node.key, node.value]}
+      end
+      array
+    end
+  end
 end
 
 new_map = HashMap.new
