@@ -105,7 +105,7 @@ class LinkedList
       end
       deleted_node = active_node.next_node
       active_node.next_node = active_node.next_node.next_node
-      deleted_node
+      deleted_node.value
     end
   end
 end
