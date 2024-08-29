@@ -1,5 +1,3 @@
-# 1.) How to keep track of Keys to determine if collision or reassignment? => save key/value pair as Node
-# 2.) Best way to grow bucket. If create new array how to copy exisiting elements over? 
 require './lib/node'
 require './lib/linked_list'
 
@@ -125,6 +123,8 @@ class HashMap
   end
 end
 
+
+# ------------ Code tests --------------
 new_map = HashMap.new
 new_map.set('Aoo', 'Boo')
 new_map.set('Coo', 'Doo')
