@@ -89,6 +89,15 @@ class LinkedList
     nil
   end
 
+  def each
+    active_node = @head
+    until active_node == nil
+      yield active_node
+      
+      active_node = active_node.next_node
+    end
+  end
+
   def remove_at(index)
     return nil if @head == nil
 
