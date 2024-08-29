@@ -74,7 +74,7 @@ class HashMap
   def remove(key)
     hashed_key = hash(key)
     return nil if !has?(key)
-    
+
     if bucket[hashed_key].size == 1
       deleted_value = bucket[hashed_key].head.value
       bucket[hashed_key] = nil
@@ -82,6 +82,10 @@ class HashMap
     else
       bucket[hashed_key].remove_at(bucket[hashed_key].find(key))
     end
+  end
+
+  def clear
+    @bucket = Array.new(capacity)
   end
 end
 
