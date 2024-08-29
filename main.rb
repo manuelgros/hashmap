@@ -72,7 +72,14 @@ class HashMap
   end
 
   def remove(key)
+    hashed_key = hash(key)
     if has?(key)
+      return bucket[hashed_key] = nil if bucket[hashed_key].size == 1
+
+      bucket[hashed_key].remove_at(bucket[hashed_key].find(key))
+    else
+      nil
+    end
   end
 end
 
