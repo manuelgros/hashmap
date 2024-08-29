@@ -9,8 +9,8 @@ class HashMap
   attr_reader :load_factor
 
   def initialize
-    @bucket = Array.new(16)
     @capacity = 16
+    @bucket = Array.new(capacity)
     @load_factor = 0.8
   end
   
@@ -22,16 +22,49 @@ class HashMap
 
     hash_code%capacity
   end
+
+  def bucket_near_capacity?
+    capacity*load_factor < bucket.count { |element| !element.nil? }
+  end
+
+  def grow_bucket
+    old_bucket = @bucket
+    @capacity *= 2
+    @bucket = Array.new(capacity)
+    copy_old_bucket(old_bucket, bucket)
+  end
+
+  def copy_old_bucket(old_bucket, new_bucket)
+    old_bucket.each do |element|
+      unless element.nil?
+        new_bucket[hash(element.head.key)] = element
+      end
+    end
+  end
   
   def set(key, value)
-    selected_bucket = bucket[hash(key)] 
-      return selected_bucket = LinkedList.new.append(key, value) if selected_bucket.nil?
+    hashed_key = hash(key)
+    return bucket[hashed_key] = LinkedList.new.append(key, value) if bucket[hashed_key].nil?
 
-      if selected_bucket.contains?(key)
-        selected_bucket.at(selected_bucket.find(key)).value = value
-      else
-        selected_bucket.append(key, value)
-      end
+    if bucket[hashed_key].contains?(key)
+      bucket[hashed_key].at(bucket[hashed_key].find(key)).value = value
+    else
+      bucket[hashed_key].append(key, value)
+    end
+    grow_bucket if bucket_near_capacity?
+  end
+
+  # hash(key) <= bucket.length necessary? The way my hash() works the resulting index can't exceed array length
+  def get(key)
+    if bucket[hash(key)] != nil && hash(key) <= bucket.length 
+      bucket[hash(key)].at(bucket[hash(key)].find(key)).value
+    else
+      nil
+    end
   end
 end
 
+new_map = HashMap.new
+new_map.set('Aoo', 'Boo')
+new_map.set('Coo', 'Doo')
+new_map.set('Eoo', 'Foo')
