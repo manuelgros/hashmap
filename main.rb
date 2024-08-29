@@ -87,6 +87,14 @@ class HashMap
   def clear
     @bucket = Array.new(capacity)
   end
+
+  def length
+    count = 0
+    bucket.each do |element|
+      count += element.size if !element.nil?
+    end
+    count
+  end
 end
 
 new_map = HashMap.new
