@@ -74,7 +74,7 @@ class HashMap
 
   def remove(key)
     hashed_key = hash(key)
-    return nil if !has?(key)
+    return nil unless has?(key)
 
     if bucket[hashed_key].size == 1
       deleted_value = bucket[hashed_key].head.value
@@ -92,9 +92,18 @@ class HashMap
   def length
     count = 0
     bucket.each do |element|
-      count += element.size if !element.nil?
+      count += element.size unless element.nil?
     end
     count
+  end
+
+  def keys
+    bucket.reduce([]) do |array, element|
+      unless element.nil?
+        element.each {|node| array << node.key}
+      end
+      array
+    end
   end
 end
 
