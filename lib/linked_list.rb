@@ -88,4 +88,24 @@ class LinkedList
     end
     nil
   end
+
+  def remove_at(index)
+    return nil if @head == nil
+
+    if index == 1
+      deleted_node = @head
+      @head = @head.next_node
+      deleted_node
+    else
+      active_node = @head
+      (index-2).times do
+        active_node = active_node.next_node
+        return self.pop if active_node == @tail
+
+      end
+      deleted_node = active_node.next_node
+      active_node.next_node = active_node.next_node.next_node
+      deleted_node
+    end
+  end
 end
