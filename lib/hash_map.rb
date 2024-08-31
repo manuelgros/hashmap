@@ -39,9 +39,7 @@ class HashMap
 
   def copy_old_bucket(old_bucket, new_bucket)
     old_bucket.each do |element|
-      unless element.nil?
-        new_bucket[hash(element.head.key)] = element
-      end
+      new_bucket[hash(element.head.key)] = element unless element.nil?
     end
   end
   
@@ -93,11 +91,10 @@ class HashMap
   end
 
   def length
-    count = 0
-    bucket.each do |element|
+    bucket.reduce(0) do |count, element|
       count += element.size unless element.nil?
+      count
     end
-    count
   end
 
   def keys
