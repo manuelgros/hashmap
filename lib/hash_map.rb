@@ -46,14 +46,15 @@ class HashMap
   # change so returns added Node?
   def set(key, value)
     hashed_key = hash(key)
+    grow_bucket if bucket_near_capacity?
     return bucket[hashed_key] = LinkedList.new.append(key, value) if bucket[hashed_key].nil?
 
     if bucket[hashed_key].contains?(key)
       bucket[hashed_key].at(bucket[hashed_key].find(key)).value = value
+      bucket[hashed_key]
     else
       bucket[hashed_key].append(key, value)
     end
-    grow_bucket if bucket_near_capacity?
   end
 
   # hash(key) <= bucket.length necessary? The way my hash() works the resulting index can't exceed array length
